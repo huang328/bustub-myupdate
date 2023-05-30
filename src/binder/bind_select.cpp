@@ -13,6 +13,10 @@
 #include "binder/expressions/bound_binary_op.h"
 #include "binder/expressions/bound_column_ref.h"
 #include "binder/expressions/bound_constant.h"
+<<<<<<< HEAD
+=======
+#include "binder/expressions/bound_func_call.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "binder/expressions/bound_star.h"
 #include "binder/expressions/bound_unary_op.h"
 #include "binder/statement/explain_statement.h"
@@ -531,7 +535,13 @@ auto Binder::BindFuncCall(duckdb_libpgquery::PGFuncCall *root) -> std::unique_pt
     // Bind function as agg call.
     return std::make_unique<BoundAggCall>(function_name, root->agg_distinct, std::move(children));
   }
+<<<<<<< HEAD
   throw bustub::Exception(fmt::format("unsupported func call {}", function_name));
+=======
+
+  // In other cases, bind as func call.
+  return std::make_unique<BoundFuncCall>(function_name, std::move(children));
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 /**

@@ -9,6 +9,7 @@
 // Copyright (c) 2015-19, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
+<<<<<<< HEAD
 #pragma once
 
 #include "execution/executors/index_scan_executor.h"
@@ -38,3 +39,16 @@ auto IndexScanExecutor::Next(Tuple *tuple, RID *rid) -> bool {
 
 }  // namespace bustub
 
+=======
+#include "execution/executors/index_scan_executor.h"
+
+namespace bustub {
+IndexScanExecutor::IndexScanExecutor(ExecutorContext *exec_ctx, const IndexScanPlanNode *plan)
+    : AbstractExecutor(exec_ctx) {}
+
+void IndexScanExecutor::Init() { throw NotImplementedException("IndexScanExecutor is not implemented"); }
+
+auto IndexScanExecutor::Next(Tuple *tuple, RID *rid) -> bool { return false; }
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

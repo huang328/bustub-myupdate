@@ -3,6 +3,10 @@ add_library(
   OBJECT
   expression_factory.cpp
   plan_aggregation.cpp
+<<<<<<< HEAD
+=======
+  plan_func_call.cpp
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   plan_expression.cpp
   plan_insert.cpp
   plan_table_ref.cpp

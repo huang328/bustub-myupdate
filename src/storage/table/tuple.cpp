@@ -21,7 +21,11 @@
 namespace bustub {
 
 // TODO(Amadou): It does not look like nulls are supported. Add a null bitmap?
+<<<<<<< HEAD
 Tuple::Tuple(std::vector<Value> values, const Schema *schema) : allocated_(true) {
+=======
+Tuple::Tuple(std::vector<Value> values, const Schema *schema) {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   assert(values.size() == schema->GetColumnCount());
 
   // 1. Calculate the size of the tuple.
@@ -35,9 +39,14 @@ Tuple::Tuple(std::vector<Value> values, const Schema *schema) : allocated_(true)
   }
 
   // 2. Allocate memory.
+<<<<<<< HEAD
   size_ = tuple_size;
   data_ = new char[size_];
   std::memset(data_, 0, size_);
+=======
+  data_.resize(tuple_size);
+  std::fill(data_.begin(), data_.end(), 0);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   // 3. Serialize each attribute based on the input value.
   uint32_t column_count = schema->GetColumnCount();
@@ -47,20 +56,31 @@ Tuple::Tuple(std::vector<Value> values, const Schema *schema) : allocated_(true)
     const auto &col = schema->GetColumn(i);
     if (!col.IsInlined()) {
       // Serialize relative offset, where the actual varchar data is stored.
+<<<<<<< HEAD
       *reinterpret_cast<uint32_t *>(data_ + col.GetOffset()) = offset;
       // Serialize varchar value, in place (size+data).
       values[i].SerializeTo(data_ + offset);
+=======
+      *reinterpret_cast<uint32_t *>(data_.data() + col.GetOffset()) = offset;
+      // Serialize varchar value, in place (size+data).
+      values[i].SerializeTo(data_.data() + offset);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       auto len = values[i].GetLength();
       if (len == BUSTUB_VALUE_NULL) {
         len = 0;
       }
       offset += (len + sizeof(uint32_t));
     } else {
+<<<<<<< HEAD
       values[i].SerializeTo(data_ + col.GetOffset());
+=======
+      values[i].SerializeTo(data_.data() + col.GetOffset());
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
     }
   }
 }
 
+<<<<<<< HEAD
 Tuple::Tuple(const Tuple &other) : allocated_(other.allocated_), rid_(other.rid_), size_(other.size_) {
   if (allocated_) {
     delete[] data_;
@@ -98,6 +118,10 @@ auto Tuple::operator=(const Tuple &other) -> Tuple & {
 auto Tuple::GetValue(const Schema *schema, const uint32_t column_idx) const -> Value {
   assert(schema);
   assert(data_);
+=======
+auto Tuple::GetValue(const Schema *schema, const uint32_t column_idx) const -> Value {
+  assert(schema);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   const TypeId column_type = schema->GetColumn(column_idx).GetType();
   const char *data_ptr = GetDataPtr(schema, column_idx);
   // the third parameter "is_inlined" is unused
@@ -116,17 +140,29 @@ auto Tuple::KeyFromTuple(const Schema &schema, const Schema &key_schema, const s
 
 auto Tuple::GetDataPtr(const Schema *schema, const uint32_t column_idx) const -> const char * {
   assert(schema);
+<<<<<<< HEAD
   assert(data_);
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   const auto &col = schema->GetColumn(column_idx);
   bool is_inlined = col.IsInlined();
   // For inline type, data is stored where it is.
   if (is_inlined) {
+<<<<<<< HEAD
     return (data_ + col.GetOffset());
   }
   // We read the relative offset from the tuple data.
   int32_t offset = *reinterpret_cast<int32_t *>(data_ + col.GetOffset());
   // And return the beginning address of the real data for the VARCHAR type.
   return (data_ + offset);
+=======
+    return (data_.data() + col.GetOffset());
+  }
+  // We read the relative offset from the tuple data.
+  int32_t offset = *reinterpret_cast<const int32_t *>(data_.data() + col.GetOffset());
+  // And return the beginning address of the real data for the VARCHAR type.
+  return (data_.data() + offset);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 auto Tuple::ToString(const Schema *schema) const -> std::string {
@@ -149,18 +185,29 @@ auto Tuple::ToString(const Schema *schema) const -> std::string {
     }
   }
   os << ")";
+<<<<<<< HEAD
   os << " Tuple size is " << size_;
+=======
+  os << " Tuple size is " << data_.size();
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   return os.str();
 }
 
 void Tuple::SerializeTo(char *storage) const {
+<<<<<<< HEAD
   memcpy(storage, &size_, sizeof(int32_t));
   memcpy(storage + sizeof(int32_t), data_, size_);
+=======
+  int32_t sz = data_.size();
+  memcpy(storage, &sz, sizeof(int32_t));
+  memcpy(storage + sizeof(int32_t), data_.data(), sz);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 void Tuple::DeserializeFrom(const char *storage) {
   uint32_t size = *reinterpret_cast<const uint32_t *>(storage);
+<<<<<<< HEAD
   // Construct a tuple.
   this->size_ = size;
   if (this->allocated_) {
@@ -169,6 +216,10 @@ void Tuple::DeserializeFrom(const char *storage) {
   this->data_ = new char[this->size_];
   memcpy(this->data_, storage + sizeof(int32_t), this->size_);
   this->allocated_ = true;
+=======
+  this->data_.resize(size);
+  memcpy(this->data_.data(), storage + sizeof(int32_t), size);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 }  // namespace bustub

@@ -7,6 +7,10 @@
 #include "execution/expressions/abstract_expression.h"
 #include "execution/plans/abstract_plan.h"
 #include "execution/plans/aggregation_plan.h"
+<<<<<<< HEAD
+=======
+#include "execution/plans/hash_join_plan.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "execution/plans/limit_plan.h"
 #include "execution/plans/projection_plan.h"
 #include "execution/plans/sort_plan.h"
@@ -35,6 +39,14 @@ auto AggregationPlanNode::PlanNodeToString() const -> std::string {
   return fmt::format("Agg {{ types={}, aggregates={}, group_by={} }}", agg_types_, aggregates_, group_bys_);
 }
 
+<<<<<<< HEAD
+=======
+auto HashJoinPlanNode::PlanNodeToString() const -> std::string {
+  return fmt::format("HashJoin {{ type={}, left_key={}, right_key={} }}", join_type_, left_key_expressions_,
+                     right_key_expressions_);
+}
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 auto ProjectionPlanNode::PlanNodeToString() const -> std::string {
   return fmt::format("Projection {{ exprs={} }}", expressions_);
 }

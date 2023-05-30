@@ -35,6 +35,10 @@ class BoundJoinRef;
 class BoundExpressionListRef;
 class BoundAggCall;
 class BoundCTERef;
+<<<<<<< HEAD
+=======
+class BoundFuncCall;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 class ColumnValueExpression;
 
 /**
@@ -118,6 +122,12 @@ class Planner {
   auto PlanBinaryOp(const BoundBinaryOp &expr, const std::vector<AbstractPlanNodeRef> &children)
       -> AbstractExpressionRef;
 
+<<<<<<< HEAD
+=======
+  auto PlanFuncCall(const BoundFuncCall &expr, const std::vector<AbstractPlanNodeRef> &children)
+      -> AbstractExpressionRef;
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   auto PlanColumnRef(const BoundColumnRef &expr, const std::vector<AbstractPlanNodeRef> &children)
       -> std::tuple<std::string, std::shared_ptr<ColumnValueExpression>>;
 
@@ -135,6 +145,12 @@ class Planner {
   auto GetBinaryExpressionFromFactory(const std::string &op_name, AbstractExpressionRef left,
                                       AbstractExpressionRef right) -> AbstractExpressionRef;
 
+<<<<<<< HEAD
+=======
+  auto GetFuncCallFromFactory(const std::string &func_name, std::vector<AbstractExpressionRef> args)
+      -> AbstractExpressionRef;
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   auto PlanInsert(const InsertStatement &statement) -> AbstractPlanNodeRef;
 
   auto PlanDelete(const DeleteStatement &statement) -> AbstractPlanNodeRef;

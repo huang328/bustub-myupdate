@@ -11,7 +11,11 @@
 #include "binder/statement/index_statement.h"
 #include "binder/statement/select_statement.h"
 #include "binder/statement/set_show_statement.h"
+<<<<<<< HEAD
 #include "buffer/buffer_pool_manager_instance.h"
+=======
+#include "buffer/buffer_pool_manager.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "catalog/schema.h"
 #include "catalog/table_generator.h"
 #include "common/bustub_instance.h"
@@ -20,6 +24,10 @@
 #include "common/util/string_util.h"
 #include "concurrency/lock_manager.h"
 #include "concurrency/transaction.h"
+<<<<<<< HEAD
+=======
+#include "execution/check_options.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "execution/execution_engine.h"
 #include "execution/executor_context.h"
 #include "execution/executors/mock_scan_executor.h"
@@ -37,8 +45,13 @@
 
 namespace bustub {
 
+<<<<<<< HEAD
 auto BustubInstance::MakeExecutorContext(Transaction *txn) -> std::unique_ptr<ExecutorContext> {
   return std::make_unique<ExecutorContext>(txn, catalog_, buffer_pool_manager_, txn_manager_, lock_manager_);
+=======
+auto BustubInstance::MakeExecutorContext(Transaction *txn, bool is_modify) -> std::unique_ptr<ExecutorContext> {
+  return std::make_unique<ExecutorContext>(txn, catalog_, buffer_pool_manager_, txn_manager_, lock_manager_, is_modify);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 BustubInstance::BustubInstance(const std::string &db_file_name) {
@@ -53,16 +66,34 @@ BustubInstance::BustubInstance(const std::string &db_file_name) {
   // We need more frames for GenerateTestTable to work. Therefore, we use 128 instead of the default
   // buffer pool size specified in `config.h`.
   try {
+<<<<<<< HEAD
     buffer_pool_manager_ = new BufferPoolManagerInstance(128, disk_manager_, LRUK_REPLACER_K, log_manager_);
+=======
+    buffer_pool_manager_ = new BufferPoolManager(128, disk_manager_, LRUK_REPLACER_K, log_manager_);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   } catch (NotImplementedException &e) {
     std::cerr << "BufferPoolManager is not implemented, only mock tables are supported." << std::endl;
     buffer_pool_manager_ = nullptr;
   }
 
   // Transaction (txn) related.
+<<<<<<< HEAD
   lock_manager_ = new LockManager();
   txn_manager_ = new TransactionManager(lock_manager_, log_manager_);
 
+=======
+
+  lock_manager_ = new LockManager();
+
+  txn_manager_ = new TransactionManager(lock_manager_, log_manager_);
+
+  lock_manager_->txn_manager_ = txn_manager_;
+
+#ifndef __EMSCRIPTEN__
+  lock_manager_->StartDeadlockDetection();
+#endif
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // Checkpoint related.
   checkpoint_manager_ = new CheckpointManager(txn_manager_, log_manager_, buffer_pool_manager_);
 
@@ -85,16 +116,34 @@ BustubInstance::BustubInstance() {
   // We need more frames for GenerateTestTable to work. Therefore, we use 128 instead of the default
   // buffer pool size specified in `config.h`.
   try {
+<<<<<<< HEAD
     buffer_pool_manager_ = new BufferPoolManagerInstance(128, disk_manager_, LRUK_REPLACER_K, log_manager_);
+=======
+    buffer_pool_manager_ = new BufferPoolManager(128, disk_manager_, LRUK_REPLACER_K, log_manager_);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   } catch (NotImplementedException &e) {
     std::cerr << "BufferPoolManager is not implemented, only mock tables are supported." << std::endl;
     buffer_pool_manager_ = nullptr;
   }
 
   // Transaction (txn) related.
+<<<<<<< HEAD
   lock_manager_ = new LockManager();
   txn_manager_ = new TransactionManager(lock_manager_, log_manager_);
 
+=======
+
+  lock_manager_ = new LockManager();
+
+  txn_manager_ = new TransactionManager(lock_manager_, log_manager_);
+
+  lock_manager_->txn_manager_ = txn_manager_;
+
+#ifndef __EMSCRIPTEN__
+  lock_manager_->StartDeadlockDetection();
+#endif
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // Checkpoint related.
   checkpoint_manager_ = new CheckpointManager(txn_manager_, log_manager_, buffer_pool_manager_);
 
@@ -172,6 +221,7 @@ see the execution plan of your query.
   WriteOneCell(help, writer);
 }
 
+<<<<<<< HEAD
 auto BustubInstance::ExecuteSql(const std::string &sql, ResultWriter &writer) -> bool {
   auto txn = txn_manager_->Begin();
   auto result = ExecuteSqlTxn(sql, writer, txn);
@@ -181,6 +231,25 @@ auto BustubInstance::ExecuteSql(const std::string &sql, ResultWriter &writer) ->
 }
 
 auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer, Transaction *txn) -> bool {
+=======
+auto BustubInstance::ExecuteSql(const std::string &sql, ResultWriter &writer,
+                                std::shared_ptr<CheckOptions> check_options) -> bool {
+  auto txn = txn_manager_->Begin();
+  try {
+    auto result = ExecuteSqlTxn(sql, writer, txn, std::move(check_options));
+    txn_manager_->Commit(txn);
+    delete txn;
+    return result;
+  } catch (bustub::Exception &ex) {
+    txn_manager_->Abort(txn);
+    delete txn;
+    throw ex;
+  }
+}
+
+auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer, Transaction *txn,
+                                   std::shared_ptr<CheckOptions> check_options) -> bool {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   if (!sql.empty() && sql[0] == '\\') {
     // Internal meta-commands, like in `psql`.
     if (sql == "\\dt") {
@@ -207,6 +276,7 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
 
   for (auto *stmt : binder.statement_nodes_) {
     auto statement = binder.BindStatement(stmt);
+<<<<<<< HEAD
     switch (statement->type_) {
       case StatementType::CREATE_STATEMENT: {
         const auto &create_stmt = dynamic_cast<const CreateStatement &>(*statement);
@@ -219,10 +289,20 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
           throw bustub::Exception("Failed to create table");
         }
         WriteOneCell(fmt::format("Table created with id = {}", info->oid_), writer);
+=======
+
+    bool is_delete = false;
+
+    switch (statement->type_) {
+      case StatementType::CREATE_STATEMENT: {
+        const auto &create_stmt = dynamic_cast<const CreateStatement &>(*statement);
+        HandleCreateStatement(txn, create_stmt, writer);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         continue;
       }
       case StatementType::INDEX_STATEMENT: {
         const auto &index_stmt = dynamic_cast<const IndexStatement &>(*statement);
+<<<<<<< HEAD
 
         std::vector<uint32_t> col_ids;
         for (const auto &col : index_stmt.cols_) {
@@ -247,21 +327,33 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
           throw bustub::Exception("Failed to create index");
         }
         WriteOneCell(fmt::format("Index created with id = {}", info->index_oid_), writer);
+=======
+        HandleIndexStatement(txn, index_stmt, writer);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         continue;
       }
       case StatementType::VARIABLE_SHOW_STATEMENT: {
         const auto &show_stmt = dynamic_cast<const VariableShowStatement &>(*statement);
+<<<<<<< HEAD
         auto content = GetSessionVariable(show_stmt.variable_);
         WriteOneCell(fmt::format("{}={}", show_stmt.variable_, content), writer);
+=======
+        HandleVariableShowStatement(txn, show_stmt, writer);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         continue;
       }
       case StatementType::VARIABLE_SET_STATEMENT: {
         const auto &set_stmt = dynamic_cast<const VariableSetStatement &>(*statement);
+<<<<<<< HEAD
         session_variables_[set_stmt.variable_] = set_stmt.value_;
+=======
+        HandleVariableSetStatement(txn, set_stmt, writer);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         continue;
       }
       case StatementType::EXPLAIN_STATEMENT: {
         const auto &explain_stmt = dynamic_cast<const ExplainStatement &>(*statement);
+<<<<<<< HEAD
         std::string output;
 
         // Print binder result.
@@ -304,6 +396,14 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
 
         continue;
       }
+=======
+        HandleExplainStatement(txn, explain_stmt, writer);
+        continue;
+      }
+      case StatementType::DELETE_STATEMENT:
+      case StatementType::UPDATE_STATEMENT:
+        is_delete = true;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       default:
         break;
     }
@@ -321,7 +421,14 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
     l.unlock();
 
     // Execute the query.
+<<<<<<< HEAD
     auto exec_ctx = MakeExecutorContext(txn);
+=======
+    auto exec_ctx = MakeExecutorContext(txn, is_delete);
+    if (check_options != nullptr) {
+      exec_ctx->InitCheckOptions(std::move(check_options));
+    }
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
     std::vector<Tuple> result_set{};
     is_successful &= execution_engine_->Execute(optimized_plan, &result_set, txn, exec_ctx.get());
 
@@ -357,7 +464,11 @@ auto BustubInstance::ExecuteSqlTxn(const std::string &sql, ResultWriter &writer,
  */
 void BustubInstance::GenerateTestTable() {
   auto txn = txn_manager_->Begin();
+<<<<<<< HEAD
   auto exec_ctx = MakeExecutorContext(txn);
+=======
+  auto exec_ctx = MakeExecutorContext(txn, false);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   TableGenerator gen{exec_ctx.get()};
 
   std::shared_lock<std::shared_mutex> l(catalog_lock_);

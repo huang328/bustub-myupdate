@@ -9,12 +9,16 @@
 // Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
+<<<<<<< HEAD
 #pragma once
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 #include "execution/executors/seq_scan_executor.h"
 
 namespace bustub {
 
+<<<<<<< HEAD
 SeqScanExecutor::SeqScanExecutor(ExecutorContext *exec_ctx, const SeqScanPlanNode *plan)
     : AbstractExecutor(exec_ctx), plan_(plan), table_heap_(exec_ctx_->GetCatalog()->GetTableHeap(plan_->GetTableOid())) {}
 
@@ -41,3 +45,12 @@ auto SeqScanExecutor::Next(Tuple *tuple, RID *rid) -> bool {
 
 }  // namespace bustub
 
+=======
+SeqScanExecutor::SeqScanExecutor(ExecutorContext *exec_ctx, const SeqScanPlanNode *plan) : AbstractExecutor(exec_ctx) {}
+
+void SeqScanExecutor::Init() { throw NotImplementedException("SeqScanExecutor is not implemented"); }
+
+auto SeqScanExecutor::Next(Tuple *tuple, RID *rid) -> bool { return false; }
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

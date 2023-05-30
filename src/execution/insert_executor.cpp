@@ -9,7 +9,10 @@
 // Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
+<<<<<<< HEAD
 #pragma once
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 #include <memory>
 
@@ -19,6 +22,7 @@ namespace bustub {
 
 InsertExecutor::InsertExecutor(ExecutorContext *exec_ctx, const InsertPlanNode *plan,
                                std::unique_ptr<AbstractExecutor> &&child_executor)
+<<<<<<< HEAD
     : AbstractExecutor(exec_ctx), plan_(plan), child_executor_(std::move(child_executor)) {}
 
 void InsertExecutor::Init() {
@@ -44,3 +48,12 @@ auto InsertExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool {
 
 }  // namespace bustub
 
+=======
+    : AbstractExecutor(exec_ctx) {}
+
+void InsertExecutor::Init() { throw NotImplementedException("InsertExecutor is not implemented"); }
+
+auto InsertExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool { return false; }
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

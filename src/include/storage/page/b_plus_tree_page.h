@@ -33,17 +33,32 @@ enum class IndexPageType { INVALID_INDEX_PAGE = 0, LEAF_PAGE, INTERNAL_PAGE };
  * It actually serves as a header part for each B+ tree page and
  * contains information shared by both leaf page and internal page.
  *
+<<<<<<< HEAD
  * Header format (size in byte, 24 bytes in total):
  * ----------------------------------------------------------------------------
  * | PageType (4) | LSN (4) | CurrentSize (4) | MaxSize (4) |
  * ----------------------------------------------------------------------------
  * | ParentPageId (4) | PageId(4) |
+=======
+ * Header format (size in byte, 12 bytes in total):
+ * ----------------------------------------------------------------------------
+ * | PageType (4) | CurrentSize (4) | MaxSize (4) |
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
  * ----------------------------------------------------------------------------
  */
 class BPlusTreePage {
  public:
+<<<<<<< HEAD
   auto IsLeafPage() const -> bool;
   auto IsRootPage() const -> bool;
+=======
+  // Delete all constructor / destructor to ensure memory safety
+  BPlusTreePage() = delete;
+  BPlusTreePage(const BPlusTreePage &other) = delete;
+  ~BPlusTreePage() = delete;
+
+  auto IsLeafPage() const -> bool;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   void SetPageType(IndexPageType page_type);
 
   auto GetSize() const -> int;
@@ -54,6 +69,7 @@ class BPlusTreePage {
   void SetMaxSize(int max_size);
   auto GetMinSize() const -> int;
 
+<<<<<<< HEAD
   auto GetParentPageId() const -> page_id_t;
   void SetParentPageId(page_id_t parent_page_id);
 
@@ -73,3 +89,13 @@ class BPlusTreePage {
 };
 
 }  // namespace bustub
+=======
+ private:
+  // member variable, attributes that both internal and leaf page share
+  IndexPageType page_type_ __attribute__((__unused__));
+  int size_ __attribute__((__unused__));
+  int max_size_ __attribute__((__unused__));
+};
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

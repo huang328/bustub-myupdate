@@ -13,6 +13,10 @@
 #pragma once
 
 #include <memory>
+<<<<<<< HEAD
+=======
+#include <utility>
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include <vector>
 
 #include "execution/executor_context.h"
@@ -49,6 +53,7 @@ class TopNExecutor : public AbstractExecutor {
   /** @return The output schema for the topn */
   auto GetOutputSchema() const -> const Schema & override { return plan_->OutputSchema(); }
 
+<<<<<<< HEAD
  private:
   /** The topn plan node to be executed */
   const TopNPlanNode *plan_;
@@ -57,5 +62,20 @@ class TopNExecutor : public AbstractExecutor {
 
   /** decltype传参priority_queue中比较函数的函数指针 */
   std::priority_queue<Tuple, std::vector<Tuple>, decltype(&plan_->GetComparator())> top_n_elements_;
+=======
+  /** Sets new child executor (for testing only) */
+  void SetChildExecutor(std::unique_ptr<AbstractExecutor> &&child_executor) {
+    child_executor_ = std::move(child_executor);
+  }
+
+  /** @return The size of top_entries_ container, which will be called on each child_executor->Next(). */
+  auto GetNumInHeap() -> size_t;
+
+ private:
+  /** The topn plan node to be executed */
+  const TopNPlanNode *plan_;
+  /** The child executor from which tuples are obtained */
+  std::unique_ptr<AbstractExecutor> child_executor_;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 };
 }  // namespace bustub

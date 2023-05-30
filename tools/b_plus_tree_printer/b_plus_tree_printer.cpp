@@ -13,14 +13,21 @@
 #include <cstdio>
 #include <iostream>
 
+<<<<<<< HEAD
 #include "buffer/buffer_pool_manager_instance.h"
+=======
+#include "buffer/buffer_pool_manager.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "common/logger.h"
 #include "storage/index/b_plus_tree.h"
 #include "test_util.h"  // NOLINT
 
 using bustub::BPlusTree;
 using bustub::BufferPoolManager;
+<<<<<<< HEAD
 using bustub::BufferPoolManagerInstance;
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 using bustub::DiskManager;
 using bustub::Exception;
 using bustub::GenericComparator;
@@ -73,12 +80,21 @@ auto main(int argc, char **argv) -> int {
   GenericComparator<8> comparator(key_schema.get());
 
   auto *disk_manager = new DiskManager("test.db");
+<<<<<<< HEAD
   BufferPoolManager *bpm = new BufferPoolManagerInstance(100, disk_manager);
+=======
+  auto *bpm = new BufferPoolManager(100, disk_manager);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // create and fetch header_page
   page_id_t page_id;
   auto header_page = bpm->NewPage(&page_id);
   // create b+ tree
+<<<<<<< HEAD
   BPlusTree<GenericKey<8>, RID, GenericComparator<8>> tree("foo_pk", bpm, comparator, leaf_max_size, internal_max_size);
+=======
+  BPlusTree<GenericKey<8>, RID, GenericComparator<8>> tree("foo_pk", page_id, bpm, comparator, leaf_max_size,
+                                                           internal_max_size);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // create transaction
   auto *transaction = new Transaction(0);
   while (!quit) {
@@ -111,6 +127,10 @@ auto main(int argc, char **argv) -> int {
         quit = true;
         break;
       case 'p':
+<<<<<<< HEAD
+=======
+        std::cout << tree.DrawBPlusTree() << std::endl;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         tree.Print(bpm);
         break;
       case 'g':

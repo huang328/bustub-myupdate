@@ -23,6 +23,7 @@ namespace bustub {
 
 /**
  * Init method after creating a new leaf page
+<<<<<<< HEAD
  * Including set page type, set current size to zero, set page id/parent id, set
  * next page id and set max size
  */
@@ -35,6 +36,12 @@ void B_PLUS_TREE_LEAF_PAGE_TYPE::Init(page_id_t page_id, page_id_t parent_id, in
   SetNextPageId(INVALID_PAGE_ID);
   SetMaxSize(max_size);
 }
+=======
+ * Including set page type, set current size to zero, set next page id and set max size
+ */
+INDEX_TEMPLATE_ARGUMENTS
+void B_PLUS_TREE_LEAF_PAGE_TYPE::Init(int max_size) {}
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 /**
  * Helper methods to set/get next page id
@@ -43,7 +50,11 @@ INDEX_TEMPLATE_ARGUMENTS
 auto B_PLUS_TREE_LEAF_PAGE_TYPE::GetNextPageId() const -> page_id_t { return INVALID_PAGE_ID; }
 
 INDEX_TEMPLATE_ARGUMENTS
+<<<<<<< HEAD
 void B_PLUS_TREE_LEAF_PAGE_TYPE::SetNextPageId(page_id_t next_page_id) { next_page_id_ = next_page_id; }
+=======
+void B_PLUS_TREE_LEAF_PAGE_TYPE::SetNextPageId(page_id_t next_page_id) {}
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 /*
  * Helper method to find and return the key associated with input "index"(a.k.a
@@ -52,6 +63,7 @@ void B_PLUS_TREE_LEAF_PAGE_TYPE::SetNextPageId(page_id_t next_page_id) { next_pa
 INDEX_TEMPLATE_ARGUMENTS
 auto B_PLUS_TREE_LEAF_PAGE_TYPE::KeyAt(int index) const -> KeyType {
   // replace with your own code
+<<<<<<< HEAD
   return array_[index].first;
 }
 
@@ -130,6 +142,10 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Remove(const KeyType &key, const KeyComparator 
     return true;
   }
   return false;
+=======
+  KeyType key{};
+  return key;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 template class BPlusTreeLeafPage<GenericKey<4>, RID, GenericComparator<4>>;

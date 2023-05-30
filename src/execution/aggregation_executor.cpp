@@ -9,6 +9,7 @@
 // Copyright (c) 2015-2021, Carnegie Mellon University Database Group
 //
 //===----------------------------------------------------------------------===//
+<<<<<<< HEAD
 #include "execution/executors/aggregation_executor.h"
 
 #include <memory>
@@ -18,11 +19,18 @@
 #include "execution/expressions/expression_util.h"
 #include "execution/expressions/tuple_value_expression.h"
 #include "storage/table/tuple.h"
+=======
+#include <memory>
+#include <vector>
+
+#include "execution/executors/aggregation_executor.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 namespace bustub {
 
 AggregationExecutor::AggregationExecutor(ExecutorContext *exec_ctx, const AggregationPlanNode *plan,
                                          std::unique_ptr<AbstractExecutor> &&child)
+<<<<<<< HEAD
     : AbstractExecutor(exec_ctx), plan_(plan), child_(std::move(child)), aht_(plan_->GetAggregates(), plan_->GetAggregateTypes()) {}
 
 void AggregationExecutor::Init() {
@@ -67,5 +75,14 @@ auto AggregationExecutor::Next(Tuple *tuple, RID *rid) -> bool {
   }
   return false;
 }
+=======
+    : AbstractExecutor(exec_ctx) {}
+
+void AggregationExecutor::Init() {}
+
+auto AggregationExecutor::Next(Tuple *tuple, RID *rid) -> bool { return false; }
+
+auto AggregationExecutor::GetChildExecutor() const -> const AbstractExecutor * { return child_.get(); }
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 }  // namespace bustub

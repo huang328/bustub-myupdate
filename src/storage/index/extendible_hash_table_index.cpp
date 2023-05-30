@@ -15,12 +15,20 @@ HASH_TABLE_INDEX_TYPE::ExtendibleHashTableIndex(std::unique_ptr<IndexMetadata> &
       container_(GetMetadata()->GetName(), buffer_pool_manager, comparator_, hash_fn) {}
 
 template <typename KeyType, typename ValueType, typename KeyComparator>
+<<<<<<< HEAD
 void HASH_TABLE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid, Transaction *transaction) {
+=======
+auto HASH_TABLE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid, Transaction *transaction) -> bool {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // construct insert index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
+<<<<<<< HEAD
   container_.Insert(transaction, index_key, rid);
+=======
+  return container_.Insert(transaction, index_key, rid);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 template <typename KeyType, typename ValueType, typename KeyComparator>

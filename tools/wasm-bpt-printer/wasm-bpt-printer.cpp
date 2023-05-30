@@ -7,7 +7,11 @@
 #include <sstream>
 #include <string>
 #include "binder/binder.h"
+<<<<<<< HEAD
 #include "buffer/buffer_pool_manager_instance.h"
+=======
+#include "buffer/buffer_pool_manager.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "common/bustub_instance.h"
 #include "common/exception.h"
 #include "common/logger.h"
@@ -20,7 +24,10 @@
 
 using bustub::BPlusTree;
 using bustub::BufferPoolManager;
+<<<<<<< HEAD
 using bustub::BufferPoolManagerInstance;
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 using bustub::DiskManager;
 using bustub::Exception;
 using bustub::GenericComparator;
@@ -59,12 +66,20 @@ auto BustubInit(int leaf_max_size, int internal_max_size) -> int {
   GenericComparator<8> comparator(key_schema.get());
 
   auto *disk_manager = new DiskManager("test.db");
+<<<<<<< HEAD
   bpm = new BufferPoolManagerInstance(100, disk_manager);
+=======
+  bpm = new BufferPoolManager(100, disk_manager);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // create header_page
   page_id_t page_id;
   bpm->NewPage(&page_id);
   // create b+ tree
+<<<<<<< HEAD
   tree = new BPT("foo_pk", bpm, comparator, leaf_max_size, internal_max_size);
+=======
+  tree = new BPT("foo_pk", page_id, bpm, comparator, leaf_max_size, internal_max_size);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   transaction = new Transaction(0);
   return 0;
 }

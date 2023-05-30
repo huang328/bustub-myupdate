@@ -15,7 +15,11 @@ jobs:
     runs-on: ${{ matrix.config.os }}
 
     strategy:
+<<<<<<< HEAD
       fail-fast: true
+=======
+      fail-fast: false
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       matrix:
         config:
           - {
@@ -23,6 +27,7 @@ jobs:
               os: "ubuntu-22.04",
               cc: "/usr/bin/gcc",
               cxx: "/usr/bin/g++",
+<<<<<<< HEAD
               format: "/usr/bin/clang-format-12",
               tidy: "/usr/bin/clang-tidy-12",
             }
@@ -33,10 +38,15 @@ jobs:
               cxx: "/usr/bin/g++",
               format: "/usr/bin/clang-format-12",
               tidy: "/usr/bin/clang-tidy-12",
+=======
+              format: "/usr/bin/clang-format-14",
+              tidy: "/usr/bin/clang-tidy-14",
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
             }
           - {
               name: "Ubuntu 22.04 Clang",
               os: "ubuntu-22.04",
+<<<<<<< HEAD
               cc: "/usr/bin/clang-12",
               cxx: "/usr/bin/clang++-12",
               format: "/usr/bin/clang-format-12",
@@ -57,14 +67,25 @@ jobs:
               cxx: "/usr/bin/clang++",
               format: "/usr/local/opt/llvm@12/bin/clang-format",
               tidy: "/usr/local/opt/llvm@12/bin/clang-tidy",
+=======
+              cc: "/usr/bin/clang-14",
+              cxx: "/usr/bin/clang++-14",
+              format: "/usr/bin/clang-format-14",
+              tidy: "/usr/bin/clang-tidy-14",
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
             }
           - {
               name: "macOS 12 (Monterey) AppleClang",
               os: macos-12,
               cc: "/usr/bin/clang",
               cxx: "/usr/bin/clang++",
+<<<<<<< HEAD
               format: "/usr/local/opt/llvm@12/bin/clang-format",
               tidy: "/usr/local/opt/llvm@12/bin/clang-tidy",
+=======
+              format: "/usr/local/opt/llvm@14/bin/clang-format",
+              tidy: "/usr/local/opt/llvm@14/bin/clang-tidy",
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
             }
     steps:
       - uses: actions/checkout@v2
@@ -98,7 +119,10 @@ jobs:
         run: make check-lint
 
       - name: Check Clang Tidy
+<<<<<<< HEAD
         if: matrix.config.os == 'macos-12' || matrix.config.os == 'ubuntu-22.04'
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         working-directory: ${{github.workspace}}/build
         run: make check-clang-tidy
 
@@ -111,4 +135,8 @@ jobs:
         if: runner.os == 'macOS'
         working-directory: ${{github.workspace}}/build
         # Disable container overflow checks on OSX
+<<<<<<< HEAD
         run: make build-tests && make check-public-ci-tests
+=======
+        run: make build-tests && make check-public-ci-tests
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # 5 pts
+=======
+# 4 pts
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 query
 select * from test_simple_seq_1;

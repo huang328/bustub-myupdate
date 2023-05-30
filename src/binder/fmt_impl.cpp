@@ -1,5 +1,9 @@
 #include "binder/bound_order_by.h"
 #include "binder/expressions/bound_agg_call.h"
+<<<<<<< HEAD
+=======
+#include "binder/expressions/bound_func_call.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "binder/statement/select_statement.h"
 #include "binder/table_ref/bound_cte_ref.h"
 #include "binder/table_ref/bound_expression_list_ref.h"
@@ -10,6 +14,11 @@
 
 namespace bustub {
 
+<<<<<<< HEAD
+=======
+auto BoundFuncCall::ToString() const -> std::string { return fmt::format("{}({})", func_name_, args_); }
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 auto BoundAggCall::ToString() const -> std::string {
   if (is_distinct_) {
     return fmt::format("{}_distinct({})", func_name_, args_);

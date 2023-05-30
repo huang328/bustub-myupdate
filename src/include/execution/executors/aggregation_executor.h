@@ -42,7 +42,11 @@ class SimpleAggregationHashTable {
                              const std::vector<AggregationType> &agg_types)
       : agg_exprs_{agg_exprs}, agg_types_{agg_types} {}
 
+<<<<<<< HEAD
   /** @return The initial aggregrate value for this aggregation executor */
+=======
+  /** @return The initial aggregate value for this aggregation executor */
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   auto GenerateInitialAggregateValue() -> AggregateValue {
     std::vector<Value> values{};
     for (const auto &agg_type : agg_types_) {
@@ -74,6 +78,7 @@ class SimpleAggregationHashTable {
     for (uint32_t i = 0; i < agg_exprs_.size(); i++) {
       switch (agg_types_[i]) {
         case AggregationType::CountStarAggregate:
+<<<<<<< HEAD
           result->aggregates_[i] = ValueFactory::GetIntegerValue(result->GetCountStarAggregate() + input.GetCountStarAggregate());
           break;
         case AggregationType::CountAggregate:
@@ -95,6 +100,12 @@ class SimpleAggregationHashTable {
           if (input.values[i] > result->values[i] || result->values[i].is_null()) {
             result->values[i] = input.values[i];
           }
+=======
+        case AggregationType::CountAggregate:
+        case AggregationType::SumAggregate:
+        case AggregationType::MinAggregate:
+        case AggregationType::MaxAggregate:
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
           break;
       }
     }
@@ -219,9 +230,14 @@ class AggregationExecutor : public AbstractExecutor {
   std::unique_ptr<AbstractExecutor> child_;
   /** Simple aggregation hash table */
   // TODO(Student): Uncomment SimpleAggregationHashTable aht_;
+<<<<<<< HEAD
   SimpleAggregationHashTable aht_;
   /** Simple aggregation hash table iterator */
   // TODO(Student): Uncomment SimpleAggregationHashTable::Iterator aht_iterator_;
   SimpleAggregationHashTable::Iterator aht_iteraotr_;
+=======
+  /** Simple aggregation hash table iterator */
+  // TODO(Student): Uncomment SimpleAggregationHashTable::Iterator aht_iterator_;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 };
 }  // namespace bustub

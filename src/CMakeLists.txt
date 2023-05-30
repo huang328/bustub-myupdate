@@ -23,7 +23,10 @@ set(BUSTUB_LIBS
         bustub_execution
         bustub_recovery
         bustub_type
+<<<<<<< HEAD
         bustub_container_hash
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
         bustub_container_disk_hash
         bustub_storage_disk
         bustub_storage_index

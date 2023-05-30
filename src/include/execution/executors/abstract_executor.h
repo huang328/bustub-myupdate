@@ -16,6 +16,10 @@
 #include "storage/table/tuple.h"
 
 namespace bustub {
+<<<<<<< HEAD
+=======
+class ExecutorContext;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 /**
  * The AbstractExecutor implements the Volcano tuple-at-a-time iterator model.
  * This is the base class from which all executors in the BustTub execution

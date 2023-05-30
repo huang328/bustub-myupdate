@@ -2,6 +2,7 @@
 
 namespace bustub {
 
+<<<<<<< HEAD
 auto Optimizer::TraverseAndOptimize(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   if (plan->GetChildren().empty()) {
     return plan;
@@ -40,3 +41,11 @@ auto Optimizer::Optimize(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef
 
 }  // namespace bustub
 
+=======
+auto Optimizer::OptimizeSortLimitAsTopN(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
+  // TODO(student): implement sort + limit -> top N optimizer rule
+  return plan;
+}
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

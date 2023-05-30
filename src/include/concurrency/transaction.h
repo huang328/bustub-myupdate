@@ -12,6 +12,10 @@
 
 #pragma once
 
+<<<<<<< HEAD
+=======
+#include <fmt/format.h>
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include <atomic>
 #include <deque>
 #include <memory>
@@ -64,6 +68,7 @@ using index_oid_t = uint32_t;
  */
 class TableWriteRecord {
  public:
+<<<<<<< HEAD
   TableWriteRecord(RID rid, WType wtype, const Tuple &tuple, TableHeap *table)
       : rid_(rid), wtype_(wtype), tuple_(tuple), table_(table) {}
 
@@ -73,6 +78,18 @@ class TableWriteRecord {
   Tuple tuple_;
   /** The table heap specifies which table this write record is for. */
   TableHeap *table_;
+=======
+  // NOLINTNEXTLINE
+  TableWriteRecord(table_oid_t tid, RID rid, TableHeap *table_heap) : tid_(tid), rid_(rid), table_heap_(table_heap) {}
+
+  table_oid_t tid_;
+  RID rid_;
+  TableHeap *table_heap_;
+
+  // Recording write type might be useful if you want to implement in-place update for leaderboard
+  // optimization. You don't need it for the basic implementation.
+  WType wtype_;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 };
 
 /**
@@ -80,10 +97,22 @@ class TableWriteRecord {
  */
 class IndexWriteRecord {
  public:
+<<<<<<< HEAD
+=======
+  // NOLINTNEXTLINE
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   IndexWriteRecord(RID rid, table_oid_t table_oid, WType wtype, const Tuple &tuple, index_oid_t index_oid,
                    Catalog *catalog)
       : rid_(rid), table_oid_(table_oid), wtype_(wtype), tuple_(tuple), index_oid_(index_oid), catalog_(catalog) {}
 
+<<<<<<< HEAD
+=======
+  /**
+   * Note(spring2023): I don't know what are these for. If you are implementing leaderboard optimizations, you can
+   * figure out how to use this structure to store what you need.
+   */
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   /** The rid is the value stored in the index. */
   RID rid_;
   /** Table oid. */
@@ -365,3 +394,28 @@ class Transaction {
 };
 
 }  // namespace bustub
+<<<<<<< HEAD
+=======
+
+template <>
+struct fmt::formatter<bustub::IsolationLevel> : formatter<std::string_view> {
+  // parse is inherited from formatter<string_view>.
+  template <typename FormatContext>
+  auto format(bustub::IsolationLevel x, FormatContext &ctx) const {
+    using bustub::IsolationLevel;
+    string_view name = "unknown";
+    switch (x) {
+      case IsolationLevel::READ_UNCOMMITTED:
+        name = "READ_UNCOMMITTED";
+        break;
+      case IsolationLevel::READ_COMMITTED:
+        name = "READ_COMMITTED";
+        break;
+      case IsolationLevel::REPEATABLE_READ:
+        name = "REPEATABLE_READ";
+        break;
+    }
+    return formatter<string_view>::format(name, ctx);
+  }
+};
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

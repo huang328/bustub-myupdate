@@ -33,7 +33,11 @@ class LinearProbeHashTableIndex : public Index {
 
   ~LinearProbeHashTableIndex() override = default;
 
+<<<<<<< HEAD
   void InsertEntry(const Tuple &key, RID rid, Transaction *transaction) override;
+=======
+  auto InsertEntry(const Tuple &key, RID rid, Transaction *transaction) -> bool override;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   void DeleteEntry(const Tuple &key, RID rid, Transaction *transaction) override;
 

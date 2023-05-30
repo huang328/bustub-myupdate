@@ -24,7 +24,11 @@
 namespace bustub {
 
 /**
+<<<<<<< HEAD
  * DeleteExecutor executes a delete on a table.
+=======
+ * DeletedExecutor executes a delete on a table.
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
  * Deleted values are always pulled from a child.
  */
 class DeleteExecutor : public AbstractExecutor {
@@ -50,7 +54,11 @@ class DeleteExecutor : public AbstractExecutor {
    * NOTE: DeleteExecutor::Next() does not use the `rid` out-parameter.
    * NOTE: DeleteExecutor::Next() returns true with the number of deleted rows produced only once.
    */
+<<<<<<< HEAD
   auto Next(Tuple *tuple, RID *rid) -> bool override;
+=======
+  auto Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool override;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   /** @return The output schema for the delete */
   auto GetOutputSchema() const -> const Schema & override { return plan_->OutputSchema(); };
@@ -60,6 +68,7 @@ class DeleteExecutor : public AbstractExecutor {
   const DeletePlanNode *plan_;
   /** The child executor from which RIDs for deleted tuples are pulled */
   std::unique_ptr<AbstractExecutor> child_executor_;
+<<<<<<< HEAD
   /** The table heap to delete from */
   TableHeap *table_heap_;
   /** The indexes to update */
@@ -70,3 +79,7 @@ class DeleteExecutor : public AbstractExecutor {
 
 }  // namespace bustub
 
+=======
+};
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

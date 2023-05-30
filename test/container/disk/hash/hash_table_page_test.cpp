@@ -13,7 +13,11 @@
 #include <thread>  // NOLINT
 #include <vector>
 
+<<<<<<< HEAD
 #include "buffer/buffer_pool_manager_instance.h"
+=======
+#include "buffer/buffer_pool_manager.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "common/logger.h"
 #include "gtest/gtest.h"
 #include "storage/disk/disk_manager.h"
@@ -25,12 +29,20 @@ namespace bustub {
 // NOLINTNEXTLINE
 TEST(HashTablePageTest, DISABLED_DirectoryPageSampleTest) {
   auto *disk_manager = new DiskManager("test.db");
+<<<<<<< HEAD
   auto *bpm = new BufferPoolManagerInstance(5, disk_manager);
 
   // get a directory page from the BufferPoolManager
   page_id_t directory_page_id = INVALID_PAGE_ID;
   auto directory_page =
       reinterpret_cast<HashTableDirectoryPage *>(bpm->NewPage(&directory_page_id, nullptr)->GetData());
+=======
+  auto *bpm = new BufferPoolManager(5, disk_manager);
+
+  // get a directory page from the BufferPoolManager
+  page_id_t directory_page_id = INVALID_PAGE_ID;
+  auto directory_page = reinterpret_cast<HashTableDirectoryPage *>(bpm->NewPage(&directory_page_id)->GetData());
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   EXPECT_EQ(0, directory_page->GetGlobalDepth());
   directory_page->SetPageId(10);
@@ -49,7 +61,11 @@ TEST(HashTablePageTest, DISABLED_DirectoryPageSampleTest) {
   }
 
   // unpin the directory page now that we are done
+<<<<<<< HEAD
   bpm->UnpinPage(directory_page_id, true, nullptr);
+=======
+  bpm->UnpinPage(directory_page_id, true);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   disk_manager->ShutDown();
   remove("test.db");
   delete disk_manager;
@@ -59,13 +75,22 @@ TEST(HashTablePageTest, DISABLED_DirectoryPageSampleTest) {
 // NOLINTNEXTLINE
 TEST(HashTablePageTest, DISABLED_BucketPageSampleTest) {
   auto *disk_manager = new DiskManager("test.db");
+<<<<<<< HEAD
   auto *bpm = new BufferPoolManagerInstance(5, disk_manager);
+=======
+  auto *bpm = new BufferPoolManager(5, disk_manager);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   // get a bucket page from the BufferPoolManager
   page_id_t bucket_page_id = INVALID_PAGE_ID;
 
+<<<<<<< HEAD
   auto bucket_page = reinterpret_cast<HashTableBucketPage<int, int, IntComparator> *>(
       bpm->NewPage(&bucket_page_id, nullptr)->GetData());
+=======
+  auto bucket_page =
+      reinterpret_cast<HashTableBucketPage<int, int, IntComparator> *>(bpm->NewPage(&bucket_page_id)->GetData());
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   // insert a few (key, value) pairs
   for (unsigned i = 0; i < 10; i++) {
@@ -107,7 +132,11 @@ TEST(HashTablePageTest, DISABLED_BucketPageSampleTest) {
   }
 
   // unpin the directory page now that we are done
+<<<<<<< HEAD
   bpm->UnpinPage(bucket_page_id, true, nullptr);
+=======
+  bpm->UnpinPage(bucket_page_id, true);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   disk_manager->ShutDown();
   remove("test.db");
   delete disk_manager;

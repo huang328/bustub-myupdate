@@ -12,8 +12,11 @@
 #include "execution/expressions/abstract_expression.h"
 #include "execution/plans/abstract_plan.h"
 
+<<<<<<< HEAD
 #define BUSTUB_OPTIMIZER_HACK_REMOVE_AFTER_2022_FALL
 
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 namespace bustub {
 
 /**
@@ -78,7 +81,11 @@ class Optimizer {
       -> AbstractExpressionRef;
 
   /** @brief check if the predicate is true::boolean */
+<<<<<<< HEAD
   auto IsPredicateTrue(const AbstractExpression &expr) -> bool;
+=======
+  auto IsPredicateTrue(const AbstractExpressionRef &expr) -> bool;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   /**
    * @brief optimize order by as index scan if there's an index on a table

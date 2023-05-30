@@ -10,8 +10,11 @@
 //
 //===----------------------------------------------------------------------===//
 
+<<<<<<< HEAD
 #pragma once
 
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include <memory>
 
 #include "execution/executors/delete_executor.h"
@@ -20,6 +23,7 @@ namespace bustub {
 
 DeleteExecutor::DeleteExecutor(ExecutorContext *exec_ctx, const DeletePlanNode *plan,
                                std::unique_ptr<AbstractExecutor> &&child_executor)
+<<<<<<< HEAD
     : AbstractExecutor(exec_ctx), plan_(plan), child_executor_(std::move(child_executor)) {}
 
 void DeleteExecutor::Init() {
@@ -59,3 +63,12 @@ auto DeleteExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool {
 }  // namespace bustub
 
 
+=======
+    : AbstractExecutor(exec_ctx) {}
+
+void DeleteExecutor::Init() { throw NotImplementedException("DeleteExecutor is not implemented"); }
+
+auto DeleteExecutor::Next([[maybe_unused]] Tuple *tuple, RID *rid) -> bool { return false; }
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

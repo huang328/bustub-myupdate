@@ -28,7 +28,11 @@ namespace bustub {
 
 /**
  * NestedIndexJoinPlanNode is used to represent performing a nested index join between two tables
+<<<<<<< HEAD
  * The outer table tuples are propogated using a child executor, but the inner table tuples should be
+=======
+ * The outer table tuples are propagated using a child executor, but the inner table tuples should be
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
  * obtained using the outer table tuples as well as the index from the catalog.
  */
 class NestedIndexJoinPlanNode : public AbstractPlanNode {

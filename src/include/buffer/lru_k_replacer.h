@@ -14,7 +14,10 @@
 
 #include <limits>
 #include <list>
+<<<<<<< HEAD
 #include <memory>
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include <mutex>  // NOLINT
 #include <unordered_map>
 #include <vector>
@@ -24,6 +27,22 @@
 
 namespace bustub {
 
+<<<<<<< HEAD
+=======
+enum class AccessType { Unknown = 0, Get, Scan };
+
+class LRUKNode {
+ private:
+  /** History of last seen K timestamps of this page. Least recent timestamp stored in front. */
+  // Remove maybe_unused if you start using them. Feel free to change the member variables as you want.
+
+  [[maybe_unused]] std::list<size_t> history_;
+  [[maybe_unused]] size_t k_;
+  [[maybe_unused]] frame_id_t fid_;
+  [[maybe_unused]] bool is_evictable_{false};
+};
+
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 /**
  * LRUKReplacer implements the LRU-k replacement policy.
  *
@@ -32,7 +51,11 @@ namespace bustub {
  * current timestamp and the timestamp of kth previous access.
  *
  * A frame with less than k historical references is given
+<<<<<<< HEAD
  * +inf as its backward k-distance. When multiple frames have +inf backward k-distance,
+=======
+ * +inf as its backward k-distance. When multipe frames have +inf backward k-distance,
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
  * classical LRU algorithm is used to choose victim.
  */
 class LRUKReplacer {
@@ -62,8 +85,13 @@ class LRUKReplacer {
    * that are marked as 'evictable' are candidates for eviction.
    *
    * A frame with less than k historical references is given +inf as its backward k-distance.
+<<<<<<< HEAD
    * If multiple frames have inf backward k-distance, then evict the frame with the earliest
    * timestamp overall.
+=======
+   * If multiple frames have inf backward k-distance, then evict frame with earliest timestamp
+   * based on LRU.
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
    *
    * Successful eviction of a frame should decrement the size of replacer and remove the frame's
    * access history.
@@ -83,8 +111,15 @@ class LRUKReplacer {
    * also use BUSTUB_ASSERT to abort the process if frame id is invalid.
    *
    * @param frame_id id of frame that received a new access.
+<<<<<<< HEAD
    */
   void RecordAccess(frame_id_t frame_id);
+=======
+   * @param access_type type of access that was received. This parameter is only needed for
+   * leaderboard tests.
+   */
+  void RecordAccess(frame_id_t frame_id, AccessType access_type = AccessType::Unknown);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
   /**
    * TODO(P1): Add implementation
@@ -133,6 +168,7 @@ class LRUKReplacer {
    */
   auto Size() -> size_t;
 
+<<<<<<< HEAD
   class FrameInfo {
    public:
     explicit FrameInfo(frame_id_t frame_id);
@@ -156,10 +192,17 @@ class LRUKReplacer {
  private:
   // TODO(student): implement me! You can replace these member variables as you like.
   // Remove maybe_unused if you start using them.
+=======
+ private:
+  // TODO(student): implement me! You can replace these member variables as you like.
+  // Remove maybe_unused if you start using them.
+  [[maybe_unused]] std::unordered_map<frame_id_t, LRUKNode> node_store_;
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   [[maybe_unused]] size_t current_timestamp_{0};
   [[maybe_unused]] size_t curr_size_{0};
   [[maybe_unused]] size_t replacer_size_;
   [[maybe_unused]] size_t k_;
+<<<<<<< HEAD
   std::list<std::unique_ptr<FrameInfo>> cache_pool_;
   std::unordered_map<frame_id_t, std::list<std::unique_ptr<FrameInfo>>::iterator> cache_map_;
   std::list<std::unique_ptr<FrameInfo>> temp_pool_;
@@ -168,3 +211,9 @@ class LRUKReplacer {
 };
 
 }  // namespace bustub
+=======
+  [[maybe_unused]] std::mutex latch_;
+};
+
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850

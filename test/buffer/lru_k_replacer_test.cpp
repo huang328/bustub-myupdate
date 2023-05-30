@@ -16,7 +16,11 @@
 
 namespace bustub {
 
+<<<<<<< HEAD
 TEST(LRUKReplacerTest, SampleTest) {
+=======
+TEST(LRUKReplacerTest, DISABLED_SampleTest) {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   LRUKReplacer lru_replacer(7, 2);
 
   // Scenario: add six elements to the replacer. We have [1,2,3,4,5]. Frame 6 is non-evictable.
@@ -91,10 +95,16 @@ TEST(LRUKReplacerTest, SampleTest) {
   ASSERT_EQ(value, 1);
   ASSERT_EQ(0, lru_replacer.Size());
 
+<<<<<<< HEAD
   // These operations should not modify size
   ASSERT_EQ(false, lru_replacer.Evict(&value));
   ASSERT_EQ(0, lru_replacer.Size());
   lru_replacer.Remove(1);
   ASSERT_EQ(0, lru_replacer.Size());
+=======
+  // This operation should not modify size
+  ASSERT_EQ(false, lru_replacer.Evict(&value));
+  ASSERT_EQ(0, lru_replacer.Size());
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 }  // namespace bustub

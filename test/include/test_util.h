@@ -24,7 +24,10 @@
 #include "common/exception.h"
 #include "common/logger.h"
 #include "common/util/string_util.h"
+<<<<<<< HEAD
 #include "storage/page/header_page.h"
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 namespace bustub {
 

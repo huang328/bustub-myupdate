@@ -12,9 +12,12 @@
 
 #include "execution/executors/hash_join_executor.h"
 
+<<<<<<< HEAD
 // Note for 2022 Fall: You don't need to implement HashJoinExecutor to pass all tests. You ONLY need to implement it
 // if you want to get faster in leaderboard tests.
 
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 namespace bustub {
 
 HashJoinExecutor::HashJoinExecutor(ExecutorContext *exec_ctx, const HashJoinPlanNode *plan,
@@ -22,7 +25,11 @@ HashJoinExecutor::HashJoinExecutor(ExecutorContext *exec_ctx, const HashJoinPlan
                                    std::unique_ptr<AbstractExecutor> &&right_child)
     : AbstractExecutor(exec_ctx) {
   if (!(plan->GetJoinType() == JoinType::LEFT || plan->GetJoinType() == JoinType::INNER)) {
+<<<<<<< HEAD
     // Note for 2022 Fall: You ONLY need to implement left join and inner join.
+=======
+    // Note for 2023 Spring: You ONLY need to implement left join and inner join.
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
     throw bustub::NotImplementedException(fmt::format("join type {} not supported", plan->GetJoinType()));
   }
 }

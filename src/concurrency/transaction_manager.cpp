@@ -18,6 +18,7 @@
 #include <unordered_set>
 
 #include "catalog/catalog.h"
+<<<<<<< HEAD
 #include "storage/table/table_heap.h"
 namespace bustub {
 
@@ -118,5 +119,29 @@ void TransactionManager::Abort(Transaction *txn) {
 void TransactionManager::BlockAllTransactions() { global_txn_latch_.WLock(); }
 
 void TransactionManager::ResumeTransactions() { global_txn_latch_.WUnlock(); }
+=======
+#include "common/macros.h"
+#include "storage/table/table_heap.h"
+namespace bustub {
+
+void TransactionManager::Commit(Transaction *txn) {
+  // Release all the locks.
+  ReleaseLocks(txn);
+
+  txn->SetState(TransactionState::COMMITTED);
+}
+
+void TransactionManager::Abort(Transaction *txn) {
+  /* TODO: revert all the changes in write set */
+
+  ReleaseLocks(txn);
+
+  txn->SetState(TransactionState::ABORTED);
+}
+
+void TransactionManager::BlockAllTransactions() { UNIMPLEMENTED("block is not supported now!"); }
+
+void TransactionManager::ResumeTransactions() { UNIMPLEMENTED("resume is not supported now!"); }
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 }  // namespace bustub

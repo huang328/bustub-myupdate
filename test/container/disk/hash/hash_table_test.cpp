@@ -13,7 +13,11 @@
 #include <thread>  // NOLINT
 #include <vector>
 
+<<<<<<< HEAD
 #include "buffer/buffer_pool_manager_instance.h"
+=======
+#include "buffer/buffer_pool_manager.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "common/logger.h"
 #include "container/disk/hash/disk_extendible_hash_table.h"
 #include "gtest/gtest.h"
@@ -26,7 +30,11 @@ namespace bustub {
 // NOLINTNEXTLINE
 TEST(HashTableTest, DISABLED_SampleTest) {
   auto *disk_manager = new DiskManager("test.db");
+<<<<<<< HEAD
   auto *bpm = new BufferPoolManagerInstance(50, disk_manager);
+=======
+  auto *bpm = new BufferPoolManager(50, disk_manager);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   DiskExtendibleHashTable<int, int, IntComparator> ht("blah", bpm, IntComparator(), HashFunction<int>());
 
   // insert a few values

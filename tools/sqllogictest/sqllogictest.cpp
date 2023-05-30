@@ -11,6 +11,10 @@
 #include "common/bustub_instance.h"
 #include "common/exception.h"
 #include "common/util/string_util.h"
+<<<<<<< HEAD
+=======
+#include "execution/check_options.h"
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 #include "fmt/core.h"
 #include "fmt/ranges.h"
 #include "parser.h"
@@ -61,7 +65,12 @@ auto ResultCompare(const std::string &produced_result, const std::string &expect
 }
 
 auto ProcessExtraOptions(const std::string &sql, bustub::BustubInstance &instance,
+<<<<<<< HEAD
                          const std::vector<std::string> &extra_options, bool verbose) -> bool {
+=======
+                         const std::vector<std::string> &extra_options, bool verbose,
+                         std::shared_ptr<bustub::CheckOptions> &check_options) -> bool {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   for (const auto &opt : extra_options) {
     if (bustub::StringUtil::StartsWith(opt, "ensure:")) {
       std::stringstream result;
@@ -73,21 +82,59 @@ auto ProcessExtraOptions(const std::string &sql, bustub::BustubInstance &instanc
           fmt::print("IndexScan not found\n");
           return false;
         }
+<<<<<<< HEAD
+=======
+      } else if (opt == "ensure:hash_join") {
+        if (bustub::StringUtil::Split(result.str(), "HashJoin").size() != 2 &&
+            !bustub::StringUtil::Contains(result.str(), "Filter")) {
+          fmt::print("HashJoin not found\n");
+          return false;
+        }
+      } else if (opt == "ensure:hash_join*2") {
+        if (bustub::StringUtil::Split(result.str(), "HashJoin").size() != 3 &&
+            !bustub::StringUtil::Contains(result.str(), "Filter")) {
+          fmt::print("HashJoin should appear exactly twice\n");
+          return false;
+        }
+      } else if (opt == "ensure:hash_join*3") {
+        if (bustub::StringUtil::Split(result.str(), "HashJoin").size() != 4 &&
+            !bustub::StringUtil::Contains(result.str(), "Filter")) {
+          fmt::print("HashJoin should appear exactly thrice\n");
+          return false;
+        }
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       } else if (opt == "ensure:topn") {
         if (!bustub::StringUtil::Contains(result.str(), "TopN")) {
           fmt::print("TopN not found\n");
           return false;
         }
+<<<<<<< HEAD
+=======
+        check_options->check_options_set_.emplace(bustub::CheckOption::ENABLE_TOPN_CHECK);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       } else if (opt == "ensure:topn*2") {
         if (bustub::StringUtil::Split(result.str(), "TopN").size() != 3) {
           fmt::print("TopN should appear exactly twice\n");
           return false;
         }
+<<<<<<< HEAD
+=======
+        check_options->check_options_set_.emplace(bustub::CheckOption::ENABLE_TOPN_CHECK);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       } else if (opt == "ensure:index_join") {
         if (!bustub::StringUtil::Contains(result.str(), "NestedIndexJoin")) {
           fmt::print("NestedIndexJoin not found\n");
           return false;
         }
+<<<<<<< HEAD
+=======
+      } else if (opt == "ensure:nlj_init_check") {
+        if (!bustub::StringUtil::Contains(result.str(), "NestedLoopJoin")) {
+          fmt::print("NestedLoopJoin not found\n");
+          return false;
+        }
+        check_options->check_options_set_.emplace(bustub::CheckOption::ENABLE_NLJ_CHECK);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
       } else {
         throw bustub::NotImplementedException(fmt::format("unsupported extra option: {}", opt));
       }
@@ -186,6 +233,10 @@ auto main(int argc, char **argv) -> int {  // NOLINT
   }
 
   for (const auto &record : result) {
+<<<<<<< HEAD
+=======
+    auto check_options = std::make_shared<bustub::CheckOptions>();
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
     fmt::print("{}\n", record->loc_);
     switch (record->type_) {
       case bustub::RecordType::HALT: {
@@ -211,14 +262,22 @@ auto main(int argc, char **argv) -> int {  // NOLINT
           }
         }
         try {
+<<<<<<< HEAD
           if (!ProcessExtraOptions(statement.sql_, *bustub, statement.extra_options_, verbose)) {
+=======
+          if (!ProcessExtraOptions(statement.sql_, *bustub, statement.extra_options_, verbose, check_options)) {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
             fmt::print("failed to process extra options\n");
             return 1;
           }
 
           std::stringstream result;
           auto writer = bustub::SimpleStreamWriter(result, true);
+<<<<<<< HEAD
           bustub->ExecuteSql(statement.sql_, writer);
+=======
+          bustub->ExecuteSql(statement.sql_, writer, check_options);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
           if (verbose) {
             fmt::print("----\n{}\n", result.str());
           }
@@ -246,14 +305,22 @@ auto main(int argc, char **argv) -> int {  // NOLINT
           }
         }
         try {
+<<<<<<< HEAD
           if (!ProcessExtraOptions(query.sql_, *bustub, query.extra_options_, verbose)) {
+=======
+          if (!ProcessExtraOptions(query.sql_, *bustub, query.extra_options_, verbose, check_options)) {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
             fmt::print("failed to process extra options\n");
             return 1;
           }
 
           std::stringstream result;
           auto writer = bustub::SimpleStreamWriter(result, true, " ");
+<<<<<<< HEAD
           bustub->ExecuteSql(query.sql_, writer);
+=======
+          bustub->ExecuteSql(query.sql_, writer, check_options);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
           if (verbose) {
             fmt::print("--- YOUR RESULT ---\n{}\n", result.str());
           }

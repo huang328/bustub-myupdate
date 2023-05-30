@@ -10,8 +10,11 @@
 
 namespace bustub {
 
+<<<<<<< HEAD
 #ifdef BUSTUB_OPTIMIZER_HACK_REMOVE_AFTER_2022_FALL
 
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 auto Optimizer::OptimizeMergeFilterScan(const AbstractPlanNodeRef &plan) -> AbstractPlanNodeRef {
   std::vector<AbstractPlanNodeRef> children;
   for (const auto &child : plan->GetChildren()) {
@@ -36,6 +39,9 @@ auto Optimizer::OptimizeMergeFilterScan(const AbstractPlanNodeRef &plan) -> Abst
   return optimized_plan;
 }
 
+<<<<<<< HEAD
 #endif
 
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }  // namespace bustub

@@ -10,6 +10,7 @@
 #include "concurrency/lock_manager.h"
 #include "concurrency/transaction_manager.h"
 #include "gtest/gtest.h"
+<<<<<<< HEAD
 #define TEST_TIMEOUT_BEGIN                           \
   std::promise<bool> promisedFinished;               \
   auto futureResult = promisedFinished.get_future(); \
@@ -19,6 +20,8 @@
   }, std::ref(promisedFinished)).detach();                                                        \
   EXPECT_TRUE(futureResult.wait_for(std::chrono::milliseconds(X)) != std::future_status::timeout) \
       << "Test Failed Due to Time Out";
+=======
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 namespace bustub {
 TEST(LockManagerDeadlockDetectionTest, DISABLED_EdgeTest) {

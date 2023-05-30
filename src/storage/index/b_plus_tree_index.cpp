@@ -17,17 +17,33 @@ namespace bustub {
  */
 INDEX_TEMPLATE_ARGUMENTS
 BPLUSTREE_INDEX_TYPE::BPlusTreeIndex(std::unique_ptr<IndexMetadata> &&metadata, BufferPoolManager *buffer_pool_manager)
+<<<<<<< HEAD
     : Index(std::move(metadata)),
       comparator_(GetMetadata()->GetKeySchema()),
       container_(GetMetadata()->GetName(), buffer_pool_manager, comparator_) {}
 
 INDEX_TEMPLATE_ARGUMENTS
 void BPLUSTREE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid, Transaction *transaction) {
+=======
+    : Index(std::move(metadata)), comparator_(GetMetadata()->GetKeySchema()) {
+  page_id_t header_page_id;
+  buffer_pool_manager->NewPage(&header_page_id);
+  container_ = std::make_shared<BPlusTree<KeyType, ValueType, KeyComparator>>(GetMetadata()->GetName(), header_page_id,
+                                                                              buffer_pool_manager, comparator_);
+}
+
+INDEX_TEMPLATE_ARGUMENTS
+auto BPLUSTREE_INDEX_TYPE::InsertEntry(const Tuple &key, RID rid, Transaction *transaction) -> bool {
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
   // construct insert index key
   KeyType index_key;
   index_key.SetFromKey(key);
 
+<<<<<<< HEAD
   container_.Insert(index_key, rid, transaction);
+=======
+  return container_->Insert(index_key, rid, transaction);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 INDEX_TEMPLATE_ARGUMENTS
@@ -36,7 +52,11 @@ void BPLUSTREE_INDEX_TYPE::DeleteEntry(const Tuple &key, RID rid, Transaction *t
   KeyType index_key;
   index_key.SetFromKey(key);
 
+<<<<<<< HEAD
   container_.Remove(index_key, transaction);
+=======
+  container_->Remove(index_key, transaction);
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 }
 
 INDEX_TEMPLATE_ARGUMENTS
@@ -45,6 +65,7 @@ void BPLUSTREE_INDEX_TYPE::ScanKey(const Tuple &key, std::vector<RID> *result, T
   KeyType index_key;
   index_key.SetFromKey(key);
 
+<<<<<<< HEAD
   container_.GetValue(index_key, result, transaction);
 }
 
@@ -56,6 +77,19 @@ auto BPLUSTREE_INDEX_TYPE::GetBeginIterator(const KeyType &key) -> INDEXITERATOR
 
 INDEX_TEMPLATE_ARGUMENTS
 auto BPLUSTREE_INDEX_TYPE::GetEndIterator() -> INDEXITERATOR_TYPE { return container_.End(); }
+=======
+  container_->GetValue(index_key, result, transaction);
+}
+
+INDEX_TEMPLATE_ARGUMENTS
+auto BPLUSTREE_INDEX_TYPE::GetBeginIterator() -> INDEXITERATOR_TYPE { return container_->Begin(); }
+
+INDEX_TEMPLATE_ARGUMENTS
+auto BPLUSTREE_INDEX_TYPE::GetBeginIterator(const KeyType &key) -> INDEXITERATOR_TYPE { return container_->Begin(key); }
+
+INDEX_TEMPLATE_ARGUMENTS
+auto BPLUSTREE_INDEX_TYPE::GetEndIterator() -> INDEXITERATOR_TYPE { return container_->End(); }
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 template class BPlusTreeIndex<GenericKey<4>, RID, GenericComparator<4>>;
 template class BPlusTreeIndex<GenericKey<8>, RID, GenericComparator<8>>;

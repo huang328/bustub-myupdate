@@ -21,6 +21,7 @@ namespace bustub {
  *****************************************************************************/
 /*
  * Init method after creating a new internal page
+<<<<<<< HEAD
  * Including set page type, set current size, set page id, set parent id and set
  * max page size
  */
@@ -32,6 +33,12 @@ void B_PLUS_TREE_INTERNAL_PAGE_TYPE::Init(page_id_t page_id, page_id_t parent_id
   SetParentPageId(parent_id);
   SetMaxSize(max_size);
 }
+=======
+ * Including set page type, set current size, and set max page size
+ */
+INDEX_TEMPLATE_ARGUMENTS
+void B_PLUS_TREE_INTERNAL_PAGE_TYPE::Init(int max_size) {}
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 /*
  * Helper method to get/set the key associated with input "index"(a.k.a
  * array offset)
@@ -39,6 +46,7 @@ void B_PLUS_TREE_INTERNAL_PAGE_TYPE::Init(page_id_t page_id, page_id_t parent_id
 INDEX_TEMPLATE_ARGUMENTS
 auto B_PLUS_TREE_INTERNAL_PAGE_TYPE::KeyAt(int index) const -> KeyType {
   // replace with your own code
+<<<<<<< HEAD
   return array_[index].first;
 }
 
@@ -117,12 +125,21 @@ void B_PLUS_TREE_INTERNAL_PAGE_TYPE::InsertToStart(const KeyType &key, const Val
   b_plus_page->SetParentPageId(GetPageId());
   bpm->UnpinPage(page_id, true);
 }
+=======
+  KeyType key{};
+  return key;
+}
+
+INDEX_TEMPLATE_ARGUMENTS
+void B_PLUS_TREE_INTERNAL_PAGE_TYPE::SetKeyAt(int index, const KeyType &key) {}
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 /*
  * Helper method to get the value associated with input "index"(a.k.a array
  * offset)
  */
 INDEX_TEMPLATE_ARGUMENTS
+<<<<<<< HEAD
 auto B_PLUS_TREE_INTERNAL_PAGE_TYPE::ValueAt(int index) const -> ValueType { return array_[index].second; }
 
 INDEX_TEMPLATE_ARGUMENTS
@@ -139,6 +156,9 @@ void B_PLUS_TREE_INTERNAL_PAGE_TYPE::InsertNodeAfter(page_id_t new_page_id, cons
   array_[index].first = key;
   array_[index].second = new_page_id;
 }
+=======
+auto B_PLUS_TREE_INTERNAL_PAGE_TYPE::ValueAt(int index) const -> ValueType { return 0; }
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
 
 // valuetype for internalNode should be page id_t
 template class BPlusTreeInternalPage<GenericKey<4>, page_id_t, GenericComparator<4>>;
@@ -146,4 +166,8 @@ template class BPlusTreeInternalPage<GenericKey<8>, page_id_t, GenericComparator
 template class BPlusTreeInternalPage<GenericKey<16>, page_id_t, GenericComparator<16>>;
 template class BPlusTreeInternalPage<GenericKey<32>, page_id_t, GenericComparator<32>>;
 template class BPlusTreeInternalPage<GenericKey<64>, page_id_t, GenericComparator<64>>;
+<<<<<<< HEAD
 }  // namespace bustub
+=======
+}  // namespace bustub
+>>>>>>> dfa6cd4e82ef42eb111b889604cbf280771b7850
